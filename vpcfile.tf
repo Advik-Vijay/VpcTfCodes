@@ -8,7 +8,7 @@ resource "aws_vpc" "myvpc" {
 resource "aws_subnet" "pub-subnet" {
   vpc_id     = aws_vpc.myvpc.id
   cidr_block = "10.0.1.0/24"
-  availability_zone = "eu-west-2a"
+  availability_zone = "us-east-1a"
 
   tags = {
     Name = "public-subnet"
@@ -19,7 +19,7 @@ resource "aws_subnet" "pub-subnet" {
 resource "aws_subnet" "pvt-subnet" {
   vpc_id     = aws_vpc.myvpc.id
   cidr_block = "10.0.2.0/24"
-  availability_zone = "eu-west-2b"
+  availability_zone = "us-east-1b"
 
   tags = {
     Name = "private-subnet"
@@ -129,8 +129,8 @@ resource "aws_security_group" "pvt-sg" {
 
 # Ec2 Pub
 resource "aws_instance" "public-ec2" {
-  ami    = "ami-01e479df1702f1d13"
-  instance_type = "t2.small"
+  ami    = "ami-0f9de6e2d2f067fca"
+  instance_type = "t2.micro"
   subnet_id     = aws_subnet.pub-subnet.id
   #key_name   = "AjithS3114"
   associate_public_ip_address = true
@@ -142,8 +142,8 @@ resource "aws_instance" "public-ec2" {
 
 # EC2 Prvt
 resource "aws_instance" "private-ec2" {
-  ami    = "ami-01e479df1702f1d13"
-  instance_type = "t2.small"
+  ami    = "ami-0f9de6e2d2f067fca"
+  instance_type = "t2.micro"
   subnet_id     = aws_subnet.pvt-subnet.id
   #key_name   = "AjithS3114"
   vpc_security_group_ids = [aws_security_group.pvt-sg.id]
